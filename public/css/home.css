@@ -1,0 +1,13 @@
+*,html,body {
+  margin: 0;
+  padding: 0;
+}
+
+
+.header-content{
+  background-color: rgb(201, 197, 197);
+  width: 100%;
+}
+.carousel-section{
+  height: 50%;
+}
