@@ -8,6 +8,6 @@ class HomeController extends Controller
 {
     public function view (Request $request)
     {
-        return view('index');
+        return view('home.index');
     }
 }
