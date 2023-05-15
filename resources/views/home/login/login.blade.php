@@ -12,23 +12,12 @@
           <form>
             <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
               <p class="lead fw-normal mb-0 me-3">Sign in to Vokatif</p>
-              <button type="button" class="btn btn-primary btn-floating mx-1">
-                <i class="fab fa-google-f"></i>
+              <button type="button" class="btn btn-info btn-floating mx-1">
+                <i class="bi bi-google"></i>
               </button>
 
-              <button type="button" class="btn btn-primary btn-floating mx-1">
-                <i class="fab fa-facebook"></i>
-              </button>
-
-                <i class="fab fa-facebook-f"></i>
-              </button>
-
-              <button type="button" class="btn btn-primary btn-floating mx-1">
-                <i class="fab fa-twitter"></i>
-              </button>
-
-              <button type="button" class="btn btn-primary btn-floating mx-1">
-                <i class="fab fa-linkedin-in"></i>
+              <button type="button" class="btn btn-info btn-floating mx-1">
+                <i class="bi bi-facebook"></i>
               </button>
             </div>
 
@@ -62,7 +51,7 @@
             </div>
 
             <div class="text-center text-lg-start mt-4 pt-2">
-              <button type="button" class="btn btn-primary btn-lg"
+              <button type="button" class="btn btn-info btn-lg"
                 style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
               <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="{{ url('/register')  }}"
                   class="link-danger">Register</a></p>
@@ -73,7 +62,7 @@
       </div>
     </div>
     <div
-      class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+      class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-info">
       <!-- Copyright -->
       <div class="text-white mb-3 mb-md-0">
 
