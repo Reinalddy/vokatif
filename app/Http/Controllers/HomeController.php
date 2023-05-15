@@ -10,4 +10,14 @@ class HomeController extends Controller
     {
         return view('home.index');
     }
+
+    public function login_index(Request $request)
+    {
+        return view('home.login.login');
+    }
+
+    public function register_index(Request $request)
+    {
+        return view('home.login.register');
+    }
 }
