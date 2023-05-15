@@ -20,6 +20,16 @@
                 <i class="fab fa-facebook"></i>
               </button>
 
+                <i class="fab fa-facebook-f"></i>
+              </button>
+
+              <button type="button" class="btn btn-primary btn-floating mx-1">
+                <i class="fab fa-twitter"></i>
+              </button>
+
+              <button type="button" class="btn btn-primary btn-floating mx-1">
+                <i class="fab fa-linkedin-in"></i>
+              </button>
             </div>
 
             <div class="divider d-flex align-items-center my-4">
@@ -66,6 +76,7 @@
       class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
       <!-- Copyright -->
       <div class="text-white mb-3 mb-md-0">
+
         Vokatif Copyright © 2020. All rights reserved.
       </div>
       <!-- Copyright -->
