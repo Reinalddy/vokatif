@@ -10,14 +10,14 @@
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">Creativity</a>
+          <a class="nav-link active" href="creativity">Creativity</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active">About Us</a>
         </li>
       </ul>
-      <a href="#" class="btn btn-outline-primary me-5">Login</a>
-      <a href="#" class="btn btn-primary">Sign up</a>
+      <a href="login" class="btn btn-outline-info me-2">Login</a>
+      <a href="register" class="btn btn-info me-4">Register</button></a>
     </div>
   </div>
 </nav>
