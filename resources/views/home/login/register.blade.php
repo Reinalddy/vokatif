@@ -1,4 +1,4 @@
-@extends('home.login.master.main')
+@extends('home.login.master_login.main')
 
 @section('content')
 <section class="vh-100">
