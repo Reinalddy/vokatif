@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,13 @@ use App\Http\Controllers\HomeController;
 
 
 Route::get('/', [HomeController::class,'view']);
-Route::get('/login',[HomeController::class, 'login_index']);
-Route::post('/login',[HomeController::class, 'login']);
-Route::get('/register',[HomeController::class, 'register_index']);
+
+Route::middleware('public')->group(function(){
+  Route::get('/login',[LoginController::class, 'login_index']);
+  Route::post('/login',[LoginController::class, 'login']);
+  
+  Route::get('/register',[LoginController::class, 'register_index']);
+  Route::post('/register',[LoginController::class, 'register']);
+});
+Route::post('/logout',[LoginController::class,'logout']);
 

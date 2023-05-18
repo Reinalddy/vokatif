@@ -16,8 +16,12 @@
           <a class="nav-link active">About Us</a>
         </li>
       </ul>
-      <a href="login" class="btn btn-outline-info me-2">Login</a>
-      <a href="register" class="btn btn-info me-4">Register</button></a>
+      @if ($user)
+      <button id="logout-button" class="btn btn-outline-info me-2">Logout</button>
+      @else
+      <a href="{{ url('/login') }}" class="btn btn-outline-info me-2">Login</a>
+      <a href="{{ url('/register') }}" class="btn btn-info me-4">Register</button></a>
+      @endif
     </div>
   </div>
 </nav>
