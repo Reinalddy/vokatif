@@ -2,35 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Cache\RedisStore;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
     public function view (Request $request)
     {
-        return view('home.index');
-    }
-
-    public function login_index(Request $request)
-    {
-        return view('home.login.login');
-    }
-
-    public function register_index(Request $request)
-    {
-        return view('home.login.register');
-    }
-
-    public function login(Request $request)
-    {
-        $user = Auth::getUser();
-        if($user) {
-            return redirect('/');
+        // get data login user
+        $data = Auth::user();
+        if($data) {
+            $user = DB::table('users')->where('email', $data->email)->first();
         }
         else {
-           return redirect('/login')->with(['error' => 'Pesan Error']);
+            // set var user to be null if user not login
+            $user = null;
         }
+        if($user) {
+            $status = 'login';
+        } else {
+            $status = 'not_login';
+        }
+        return view('home.index',[
+            "user" => $user,
+            "status" => $status
+        ]);
     }
 }

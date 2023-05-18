@@ -186,4 +186,65 @@
     </div>
   </div>
 </div>
+
+@push('jquery')
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>    
+@endpush
+
+<script>
+  // setup csrf token for ajax request
+  $(document).ready(function () {
+    $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+    });
+    // request for logout
+    $("#logout-button").on("click", function(e) {
+      e.preventDefault();
+      $.ajax({
+        type: "POST",
+        url: "{{ url('/logout') }}",
+        success: function (response) {
+          if(response.code == 200) {
+            Swal.fire({
+                title: 'success',
+                text: response.messages,
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ok!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  location.href = '{{ url('/login') }}';
+                }
+              });
+
+              location.href =  '{{ url('/login') }}'
+          } else if (response.code == 400) {
+
+
+          } else if (response.code == 422) {
+              $.each(response.data,function(field_name,error){
+                $(document).find('[id='+field_name+']').after('<div class="invalid-feedback d-block">' + error + '</div>')
+              })
+          }
+        },error: function (err) {
+            $.each(err.responseJSON.errors, function (key, value) {
+                $("#" + key).next().html(value[0]);
+                $("#" + key).next().removeClass('d-none');
+            });
+        }
+      });
+    });
+
+
+
+
+
+
+
+  });
+</script>
 @endsection
