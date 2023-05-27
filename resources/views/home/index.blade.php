@@ -207,19 +207,6 @@
         url: "{{ url('/logout') }}",
         success: function (response) {
           if(response.code == 200) {
-            Swal.fire({
-                title: 'success',
-                text: response.messages,
-                icon: 'success',
-                showCancelButton: false,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'ok!'
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  location.href = '{{ url('/login') }}';
-                }
-              });
 
               location.href =  '{{ url('/login') }}'
           } else if (response.code == 400) {
