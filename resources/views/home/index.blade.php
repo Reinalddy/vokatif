@@ -50,6 +50,7 @@
     </button>
   </div>
 </div>
+{{-- end crausel --}}
   <div class="album py-5 bg-body-tertiary">
     <div class="container">
 
@@ -182,6 +183,41 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{-- modal --}}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Upload New Post</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-9">
+            <form>
+                <fieldset class="upload_dropZone text-center mb-3 p-4">
+                  <legend class="visually-hidden">Image uploader</legend>
+                  <svg class="upload_svg" width="60" height="60" aria-hidden="true">
+                    <use href="#icon-imageUpload"></use>
+                  </svg>
+                  <p class="small my-2">Drag &amp; Drop background image(s) inside dashed region<br><i>or</i></p>
+                  <input id="upload_image_background" data-post-name="image_background" data-post-url="https://someplace.com/image/uploads/backgrounds/" class="position-absolute invisible" type="file" multiple accept="image/jpeg, image/png, image/svg+xml" />
+                  <label class="btn btn-upload mb-3 bg-dark" for="upload_image_background">Choose file(s)</label>
+                  <div class="upload_gallery d-flex flex-wrap justify-content-center gap-3 mb-0"></div>
+                </fieldset>
+              </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
