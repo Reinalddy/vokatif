@@ -29,13 +29,13 @@
       <!-- Left links -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="#">Home</a>
+          <a class="nav-link" href="{{ url('/') }}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Creatifity</a>
+          <a class="nav-link" href="{{ url('/creatifity') }}">Creatifity</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">About Us</a>
+          <a class="nav-link" href="{{ url('/about-us') }}">About Us</a>
         </li>
       </ul>
       <!-- Left links -->

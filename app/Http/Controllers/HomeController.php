@@ -36,6 +36,8 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         
-        return view('profile.index');
+        return view('profile.index', [
+            'user' => $user
+        ]);
     }
 }
