@@ -31,4 +31,13 @@ class HomeController extends Controller
             "status" => $status
         ]);
     }
+
+    public function profile_index(Request $request)
+    {
+        $user = Auth::user();
+        
+        return view('profile.index', [
+            'user' => $user
+        ]);
+    }
 }

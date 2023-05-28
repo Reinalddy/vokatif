@@ -200,7 +200,7 @@
             }
     });
     // request for logout
-    $("#logout-button").on("click", function(e) {
+    $('.sub-menu-wrap').on('click','#logout-button', function(e) {
       e.preventDefault();
       $.ajax({
         type: "POST",
