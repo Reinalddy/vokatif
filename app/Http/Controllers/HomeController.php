@@ -31,12 +31,38 @@ class HomeController extends Controller
             "status" => $status
         ]);
     }
+    
+    public function creatifity_index(Request $request)
+    {
+        $user = Auth::user();
+
+        return view('home.creatifity',[
+            'user' => $user
+        ]);
+    }
+
+    public function about_us_index(Request $request)
+    {
+        $user = Auth::user();
+
+        return view('home.about-us',[
+            'user' => $user
+        ]);
+    }
 
     public function profile_index(Request $request)
     {
         $user = Auth::user();
         
         return view('profile.index', [
+            'user' => $user
+        ]);
+    }
+
+    public function my_posts_index(Request $request){
+        $user = Auth::user();
+
+        return view('profile.my-posts',[
             'user' => $user
         ]);
     }
