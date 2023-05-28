@@ -17,7 +17,7 @@ class LoginMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->role_id == 2) {
+        if(Auth::check()) {
             return $next($request);
         }
         return redirect('/login');

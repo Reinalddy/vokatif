@@ -24,10 +24,10 @@ Route::middleware('public')->group(function(){
   
   Route::get('/register',[LoginController::class, 'register_index']);
   Route::post('/register',[LoginController::class, 'register']);
-  Route::post('/logout',[LoginController::class,'logout']);
 });
 
 Route::middleware('login')->group(function() {
+  Route::post('/logout',[LoginController::class,'logout']);
   Route::get('/profile', [HomeController::class, 'profile_index']);
 });
 

@@ -45,7 +45,7 @@
     <!-- Right elements -->
     <div class="d-flex align-items-center">
       @if ($user)
-        <img src="{{ asset('/img/logo.png') }}" alt="" class="user-pic" onclick="toggleMenu()">
+        <img src="{{ asset('/img/logo.png') }}" alt="" class="user-pic" onclick="toggleMenu()" id="toggle-menu">
 
         <div class="sub-menu-wrap" id="subMenu">
           <div class="sub-menu">
@@ -55,17 +55,17 @@
             </div>
             <hr>
             <div>
-              <a href="#" class="sub-menu-link">
+              <a href="{{ url('/profile') }}" class="sub-menu-link">
                 <p>Edit Profile</p>
               </a>
             </div>
             <div>
-              <a href="#" class="sub-menu-link">
+              <a href="{{ url('/settings') }}" class="sub-menu-link">
                 <p>Settings</p>
               </a>
             </div>
             <div>
-              <a href="#" class="sub-menu-link" id="logout-button">
+              <a href="" class="sub-menu-link" id="logout-button">
                 <p>Log Out</p>
               </a>
             </div>            
@@ -92,5 +92,7 @@
 
   function toggleMenu() {
     subMenu.classList.toggle('open-menu');
+    
   }
+  
 </script>
