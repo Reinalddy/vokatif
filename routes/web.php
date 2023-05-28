@@ -17,6 +17,8 @@ use App\Http\Controllers\LoginController;
 
 
 Route::get('/', [HomeController::class,'view']);
+Route::get('/creatifity',[HomeController::class,'creatifity_index']);
+Route::get('/about-us',[HomeController::class,'about_us_index']);
 
 Route::middleware('public')->group(function(){
   Route::get('/login',[LoginController::class, 'login_index']);
@@ -29,5 +31,6 @@ Route::middleware('public')->group(function(){
 Route::middleware('login')->group(function() {
   Route::post('/logout',[LoginController::class,'logout']);
   Route::get('/profile', [HomeController::class, 'profile_index']);
+  Route::get('/my-posts', [HomeController::class, 'my_posts_index']);
 });
 
