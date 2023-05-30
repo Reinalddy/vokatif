@@ -66,6 +66,16 @@
         </div>
       </div>
     </div>
+    <div
+      class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-info">
+      <!-- Copyright -->
+      <div class="text-white mb-3 mb-md-0">
+
+        Vokatif Copyright © 2020. All rights reserved.
+      </div>
+      <!-- Copyright -->
+
+    </div>
 </section>
 @push('jquery')
   <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>    
