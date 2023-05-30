@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Cache\RedisStore;
 use Illuminate\Http\Request;
@@ -14,6 +15,7 @@ class HomeController extends Controller
     {
         // get data login user
         $data = Auth::user();
+        $post = Post::all();
         if($data) {
             $user = DB::table('users')->where('email', $data->email)->first();
         }
@@ -28,7 +30,8 @@ class HomeController extends Controller
         }
         return view('home.index',[
             "user" => $user,
-            "status" => $status
+            "status" => $status,
+            "post" => $post
         ]);
     }
     
