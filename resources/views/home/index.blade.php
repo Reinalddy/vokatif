@@ -51,138 +51,37 @@
   </div>
 </div>
 {{-- end crausel --}}
+<div class="row">
+  <div class="col-md-12">
+    <!-- Button trigger modal -->
+    <div class="btn-group mx-5 mb-5" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-primary">Left</button>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Upload</button>
+      <button type="button" class="btn btn-primary">Right</button>
+    </div>
+  </div>
+</div>
+
+
   <div class="album py-5 bg-body-tertiary">
     <div class="container">
-
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-outline-info">View</button>
+          @foreach ($post as $item)
+          <div class="col">
+            <div class="card shadow-sm">
+              <img src="{{ url("/storage/$item->image_path") }}" alt="" style="width: 100%", height="225px">
+              <div class="card-body">
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-outline-info">View</button>
+                  </div>
+                  <small class="text-body-secondary">9 mins</small>
                 </div>
-                <small class="text-body-secondary">9 mins</small>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-outline-info">View</button>
-                </div>
-                <small class="text-body-secondary">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-outline-info">View</button>
-                </div>
-                <small class="text-body-secondary">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-outline-info">View</button>
-                </div>
-                <small class="text-body-secondary">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-outline-info">View</button>
-                </div>
-                <small class="text-body-secondary">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-outline-info">View</button>
-                </div>
-                <small class="text-body-secondary">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-outline-info">View</button>
-                </div>
-                <small class="text-body-secondary">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-outline-info">View</button>
-                </div>
-                <small class="text-body-secondary">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-outline-info">View</button>
-                </div>
-                <small class="text-body-secondary">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
+          @endforeach
       </div>
     </div>
   </div>
@@ -200,19 +99,39 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-md-9">
-            <form>
-                <fieldset class="upload_dropZone text-center mb-3 p-4">
-                  <legend class="visually-hidden">Image uploader</legend>
-                  <svg class="upload_svg" width="60" height="60" aria-hidden="true">
-                    <use href="#icon-imageUpload"></use>
-                  </svg>
-                  <p class="small my-2">Drag &amp; Drop background image(s) inside dashed region<br><i>or</i></p>
-                  <input id="upload_image_background" data-post-name="image_background" data-post-url="https://someplace.com/image/uploads/backgrounds/" class="position-absolute invisible" type="file" multiple accept="image/jpeg, image/png, image/svg+xml" />
-                  <label class="btn btn-upload mb-3 bg-dark" for="upload_image_background">Choose file(s)</label>
-                  <div class="upload_gallery d-flex flex-wrap justify-content-center gap-3 mb-0"></div>
-                </fieldset>
-              </form>
+          <div class="col-md-12">
+            <div class="container">
+              <div class="mb-5">
+                  <form action="" enctype="multipart/form-data" id="upload-form">
+                    <div class="form-group mt-3">
+                      <label for="Image" class="form-label">Upload Image</label>
+                      <input class="form-control" type="file" id="image" name="image" onchange="preview()">
+                      <img id="frame" src="" class="img-fluid" />
+                    </div>
+                    <div class="form-group mt-3">
+                      <label for="title" class="form-label">Title</label>
+                      <input type="text" class="form-control" id="title" name="title">
+                    </div>
+                    <div class="form-group mt-3">
+                      <label for="description" class="form-label">Description</label>
+                      <textarea name="description" id="" cols="30" rows="10" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group mt-3">
+                      <label for="tags" class="form-label">Tags</label>
+                      <select name="tags" id="tags" class="form-control">
+                        <option value="0" selected disabled>Selecet Tags</option>
+                      </select>
+                    </div>
+
+                    <button class="btn btn-primary mt-5" type="submit" id="btn-upload">Upload</button>
+                    <button class="btn btn-primary mt-5 d-none" type="submit" disabled id="btn-loading">
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      Loading...
+                    </button>
+
+                  </form>
+              </div>
+          </div>
           </div>
         </div>
       </div>
@@ -262,6 +181,54 @@
       });
     });
 
+    $("#upload-form").on('submit', function(e){
+      e.preventDefault();
+      $.ajax({
+        type: "POST",
+        url: "{{ url('/upload') }}",
+        data: new FormData(this),
+        dataType: "dataType",
+        processData: false,
+        contentType: false,
+        beforeSend: function() {
+          $("#btn-upload").addClass( "d-none" );
+          $("#btn-loading").removeClass( "d-none" );
+        },
+        success: function (response) {
+
+          if(response.code == 200) {
+            $("#btn-loading").removeClass( "d-none" );
+            $("#btn-upload").addClass( "d-none" );
+            Swal.fire(
+              'Success!',
+              response.messages,
+              'success'
+            )
+            $('#exampleModal').modal('hide');
+
+          } else if (response.code == 422) {
+            $.each(response.data,function(field_name,error){
+                $(document).find('[id='+field_name+']').after('<div class="invalid-feedback d-block">' + error + '</div>')
+              })
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong!',
+            })
+          }
+        }, error: function(error) {
+            $("#btn-loading").removeClass( "d-none" );
+            $("#btn-upload").addClass( "d-none" );
+            Swal.fire(
+              'Success!',
+              error.messages,
+              'success'
+            )
+        }
+      });
+    });
+
 
 
 
@@ -269,5 +236,14 @@
 
 
   });
+
+function preview() {
+  frame.src = URL.createObjectURL(event.target.files[0]);
+}
+
+function clearImage() {
+  document.getElementById('formFile').value = null;
+  frame.src = "";
+}
 </script>
 @endsection
