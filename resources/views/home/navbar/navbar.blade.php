@@ -45,10 +45,6 @@
     <!-- Right elements -->
     <div class="d-flex align-items-center">
       @if ($user)
-      <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          Upload
-        </button>
         <img src="{{ asset('/img/logo.png') }}" alt="" class="user-pic" onclick="toggleMenu()" id="toggle-menu">
 
         <div class="sub-menu-wrap" id="subMenu">

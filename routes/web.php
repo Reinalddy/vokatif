@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,5 +33,7 @@ Route::middleware('login')->group(function() {
   Route::post('/logout',[LoginController::class,'logout']);
   Route::get('/profile', [HomeController::class, 'profile_index']);
   Route::get('/my-posts', [HomeController::class, 'my_posts_index']);
+
+  Route::post('/upload',[PostController::class,'post']);
 });
 
