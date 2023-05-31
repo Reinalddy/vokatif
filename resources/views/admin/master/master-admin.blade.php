@@ -92,8 +92,6 @@
         <div class="btn-toolbar mb-2 mb-md-0">
         </div>
       </div>
-
-      <h2>Section title</h2>
       <div class="row">
         @yield('content')
       </div>
