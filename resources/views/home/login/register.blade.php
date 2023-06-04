@@ -90,7 +90,7 @@
           if(response.code == 200) {
             Swal.fire({
                 title: 'success',
-                text: "Registration Success!",
+                text: response.messages,
                 icon: 'success',
                 showCancelButton: false,
                 confirmButtonColor: '#3085d6',
@@ -103,12 +103,18 @@
               })
               location.href = '{{ url('/login') }}'
           } else if (response.code == 400) {
-
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: response.messages,
+            })
 
           } else if (response.code == 422) {
               $.each(response.data,function(field_name,error){
                 $(document).find('[id='+field_name+']').after('<div class="invalid-feedback d-block">' + error + '</div>')
               })
+          } else {
+
           }
         },error: function (err) {
             $.each(err.responseJSON.errors, function (key, value) {

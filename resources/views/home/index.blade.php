@@ -55,7 +55,7 @@
     <!-- Button trigger modal -->
     <div class="btn-group mx-5 mb-5" role="group" aria-label="Basic example">
       {{-- <button type="button" class="btn btn-primary">Left</button> --}}
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Upload</button>
+      <button type="button" class="btn btn-primary @if(!$user)d-none @endif" data-bs-toggle="modal" data-bs-target="#exampleModal">Upload</button>
       {{-- <button type="button" class="btn btn-primary">Right</button> --}}
     </div>
   </div>

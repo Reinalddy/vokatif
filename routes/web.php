@@ -32,7 +32,11 @@ Route::middleware('public')->group(function(){
 
 Route::middleware('login')->group(function() {
   Route::post('/logout',[LoginController::class,'logout']);
+
   Route::get('/profile', [HomeController::class, 'profile_index']);
+  Route::post('/profile', [HomeController::class, 'profile_update']);
+  Route::post('/profile/data', [HomeController::class, 'profile_update_data']);
+
   Route::get('/my-posts', [HomeController::class, 'my_posts_index']);
 
   Route::post('/upload',[PostController::class,'post']);
