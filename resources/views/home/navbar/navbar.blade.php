@@ -18,16 +18,16 @@
     <!-- Collapsible wrapper -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <!-- Navbar brand -->
-      <a class="navbar-brand mt-2 mt-lg-0" href="#">
+      <a class="navbar-brand mt-2 mt-lg-0" href="/">
         <img
           src="{{ asset('img/logo.png') }}"
-          height="15"
+          height="35"
           alt="MDB Logo"
           loading="lazy"
         />
       </a>
       <!-- Left links -->
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 me-5">
         <li class="nav-item">
           <a class="nav-link" href="{{ url('/') }}">Home</a>
         </li>
@@ -45,10 +45,19 @@
     <!-- Right elements -->
     <div class="d-flex align-items-center">
       @if ($user)
+
         @if($user->profile_path == url('/img/profile_default.jpg'))
         <img src="{{ $user->profile_path }}" alt="" class="user-pic" onclick="toggleMenu()" id="toggle-menu">
         @else
         <img src="{{ url("storage/$user->profile_path" ) }}" alt="" class="user-pic" onclick="toggleMenu()" id="toggle-menu">
+
+      <!-- Button trigger modal -->
+        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Upload
+        </button>
+
+        <img src="{{ asset('/img/logo.png') }}" alt="" class="user-pic" onclick="toggleMenu()" id="toggle-menu">
+
 
         @endif
         <div class="sub-menu-wrap" id="subMenu">
@@ -83,7 +92,7 @@
 
       @else
         <a href="{{ url('/login') }}" class="btn btn-outline-info me-2">Login</a>
-        <a href="{{ url('/register') }}" class="btn btn-info me-4">Register</button></a>
+        <a href="{{ url('/register') }}" class="btn btn-info me-5">Register</button></a>
       @endif
 
       <!-- Notifications -->
