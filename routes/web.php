@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
@@ -31,9 +32,20 @@ Route::middleware('public')->group(function(){
 
 Route::middleware('login')->group(function() {
   Route::post('/logout',[LoginController::class,'logout']);
+
   Route::get('/profile', [HomeController::class, 'profile_index']);
+  Route::post('/profile', [HomeController::class, 'profile_update']);
+  Route::post('/profile/data', [HomeController::class, 'profile_update_data']);
+
   Route::get('/my-posts', [HomeController::class, 'my_posts_index']);
 
   Route::post('/upload',[PostController::class,'post']);
+});
+
+Route::get('/dashboard',[AdminController::class,'admin_index']);
+Route::get('/dashboard/users',[AdminController::class,'users_index']);
+Route::get('/dashboard/posts',[AdminController::class,'posts_index']);
+Route::get('/dashboard/categories',[AdminController::class,'categories_index']);
+Route::middleware('admin')->group(function () {
 });
 

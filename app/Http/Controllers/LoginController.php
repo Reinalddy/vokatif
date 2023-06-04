@@ -48,11 +48,11 @@ class LoginController extends Controller
                 'data' => $validator->errors()
             ]);
         }
-
         try {
             //code...
             // begin input user request to database
             DB::beginTransaction();
+            $default_profile_path = url('/img/profile_default.jpg');
             $user = new User();
             $user->name = $request->name;
             $user->username = $request->username;
@@ -61,12 +61,13 @@ class LoginController extends Controller
             $user->remember_token = '';
             $user->created_at = now();
             $user->role_id = 2;
+            $user->profile_path = $default_profile_path;
             $user->save();
             DB::commit();
             return response()->json([
                 'code' => 200,
                 'data' => $user,
-                'message' => trans('messages.register_success'),
+                'messages' => trans('messages.register_success'),
             ]);
         } catch (Throwable $e) {
             DB::rollBack();

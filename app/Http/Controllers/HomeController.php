@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Throwable;
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Cache\RedisStore;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Cache\RedisStore;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Validated;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -60,6 +64,99 @@ class HomeController extends Controller
         return view('profile.index', [
             'user' => $user
         ]);
+    }
+
+    public function profile_update(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $user = Auth::user();
+
+            // find user
+            $user_data = User::where('id',$user->id)->first();
+            $user_data->profile_path = $request->file('image')->store('assets/profile_image', 'public');
+            $user_data->save();
+
+            DB::commit();
+            return response()->json([
+                "code" => 200,
+                "messages" => trans('messages.update_profile_success'),
+                "data" => $user_data
+            ]);
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return response()->json([
+                "code" => 500,
+                'messages'=>$e,
+            ]);
+        }
+    }
+
+    public function profile_update_data(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'name' => "required",
+            'username' => "required",
+            'email' => "required",
+            'password' => "required",
+            'old_password'=> "required",
+        ],[
+            "name.required" => 'name cannot be empty!',
+            "username.required" => 'username cannot be empty',
+            "email.required" => 'email cannot be empty',
+            "password.required" => 'password cannot be empty',
+            "old_password.required" => 'old_password cannot be empty',
+
+        ]
+    
+    );
+        
+        if($validator->fails()) {
+            return response()->json([
+                'code' => 422,
+                'data' => $validator->errors()
+            ]);
+        }
+        try {
+            $email = $request->email;
+            $name = $request->name;
+            $username = $request->username;
+
+            $user = User::where('email', $email)->first();
+            if(isset($email)) {
+                $user->email = $email;
+            }
+            if(isset($name)) {
+                $user->name = $name;
+            }
+            if(isset($username)) {
+                $user->username = $username;
+            }
+
+            if(Hash::check($request->old_password, $user->password)) {
+                $user->password = bcrypt($request->password);
+            } else {
+                return response()->json([
+                    'code' => 400,
+                    'messages' => trans('messages.old_password_not_match')
+                ]);
+            }
+            $user->save();
+
+            DB::commit();
+            return response()->json([
+                "code" => 200,
+                "messages" => trans('messages.update_profile_success'),
+                "data" => $user
+            ]);
+
+        } catch (Throwable $e) {
+            DB::rollBack();
+            return response()->json([
+                "code" => 500,
+                'messages'=>$e->getMessage(),
+            ]);
+        }
     }
 
     public function my_posts_index(Request $request){

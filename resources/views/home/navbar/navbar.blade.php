@@ -45,6 +45,12 @@
     <!-- Right elements -->
     <div class="d-flex align-items-center">
       @if ($user)
+
+        @if($user->profile_path == url('/img/profile_default.jpg'))
+        <img src="{{ $user->profile_path }}" alt="" class="user-pic" onclick="toggleMenu()" id="toggle-menu">
+        @else
+        <img src="{{ url("storage/$user->profile_path" ) }}" alt="" class="user-pic" onclick="toggleMenu()" id="toggle-menu">
+
       <!-- Button trigger modal -->
         <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
           Upload
@@ -52,11 +58,18 @@
 
         <img src="{{ asset('/img/logo.png') }}" alt="" class="user-pic" onclick="toggleMenu()" id="toggle-menu">
 
+
+        @endif
         <div class="sub-menu-wrap" id="subMenu">
           <div class="sub-menu">
             <div class="user-info">
-              <img src="{{ asset('/img/logo.png') }}" alt="">
-              <h2>Eric</h2>
+              @if($user->profile_path == url('/img/profile_default.jpg'))
+              <img src="{{ $user->profile_path }}" alt="">
+
+              @else
+              <img src="{{ url("storage/$user->profile_path") }}" alt="">
+              @endif
+              <h2 style="margin-left: 5%">{{ $user->name }}</h2>
             </div>
             <hr>
             <div>

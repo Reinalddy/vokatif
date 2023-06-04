@@ -48,19 +48,17 @@
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
-  </div>
 </div>
+
 {{-- end crausel --}}
-<div class="row">
   <div class="col-md-12">
     <!-- Button trigger modal -->
     <div class="btn-group mx-5 mb-5" role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-primary">Left</button>
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Upload</button>
-      <button type="button" class="btn btn-primary">Right</button>
+      {{-- <button type="button" class="btn btn-primary">Left</button> --}}
+      <button type="button" class="btn btn-primary @if(!$user)d-none @endif" data-bs-toggle="modal" data-bs-target="#exampleModal">Upload</button>
+      {{-- <button type="button" class="btn btn-primary">Right</button> --}}
     </div>
   </div>
-</div>
 
 
   <div class="album py-5 bg-body-tertiary">
@@ -69,14 +67,14 @@
           @foreach ($post as $item)
           <div class="col">
             <div class="card shadow-sm">
-              <img src="{{ url("/storage/$item->image_path") }}" alt="" style="width: 100%", height="225px">
+              <img src="{{ url("/storage/$item->image_path") }}" alt="" style="width: 100%", height="450px">
               <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text">{{ $item->title }}</p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
                     <button type="button" class="btn btn-outline-info">View</button>
                   </div>
-                  <small class="text-body-secondary">9 mins</small>
+                  <small class="text-body-secondary">{{ $item->created_at->diffForHumans() }}</small>
                 </div>
               </div>
             </div>
@@ -187,18 +185,17 @@
         type: "POST",
         url: "{{ url('/upload') }}",
         data: new FormData(this),
-        dataType: "dataType",
+        dataType: "json",
         processData: false,
         contentType: false,
-        beforeSend: function() {
+        beforeSend:function() {
           $("#btn-upload").addClass( "d-none" );
           $("#btn-loading").removeClass( "d-none" );
         },
-        success: function (response) {
-
+        success:function(response){
           if(response.code == 200) {
-            $("#btn-loading").removeClass( "d-none" );
-            $("#btn-upload").addClass( "d-none" );
+            $("#btn-loading").addClass( "d-none" );
+            $("#btn-upload").addClass( "d-block" );
             Swal.fire(
               'Success!',
               response.messages,
@@ -218,13 +215,14 @@
             })
           }
         }, error: function(error) {
+            console.log("error = " + error);
             $("#btn-loading").removeClass( "d-none" );
-            $("#btn-upload").addClass( "d-none" );
-            Swal.fire(
-              'Success!',
-              error.messages,
-              'success'
-            )
+            $("#btn-upload").addClass( "d-block" );
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong!',
+            })
         }
       });
     });
