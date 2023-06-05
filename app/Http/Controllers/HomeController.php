@@ -20,6 +20,7 @@ class HomeController extends Controller
         // get data login user
         $data = Auth::user();
         $post = Post::all();
+        $banner_post = Post::paginate(3);
         if($data) {
             $user = DB::table('users')->where('email', $data->email)->first();
         }
@@ -35,7 +36,8 @@ class HomeController extends Controller
         return view('home.index',[
             "user" => $user,
             "status" => $status,
-            "post" => $post
+            "post" => $post,
+            'banner_post' => $banner_post
         ]);
     }
     
