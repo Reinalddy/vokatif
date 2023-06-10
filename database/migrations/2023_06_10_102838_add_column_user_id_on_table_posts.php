@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->integer('uploaded_by')->unsigned()->after('categories_id');
-            $table->foreign('uploaded_by')->references('id')->on('users');
+            $table->integer('user_id')->after('categories_id')->default(0);
         });
     }
 
@@ -27,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('uploaded_by');
+            $table->dropColumn('user_id');
         });
     }
 };

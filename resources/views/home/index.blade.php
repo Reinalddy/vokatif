@@ -63,9 +63,9 @@
                 <p class="card-text">{{ $item->title }}</p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
-                    <button type="button" class="btn btn-outline-info">View</button>
+                    <button type="button" class="btn btn-outline-info">Detail</button>
                   </div>
-                  <small class="text-body-secondary">{{ $item->created_at->diffForHumans() }}</small>
+                  <small class="text-body-secondary">Uploded By : {{$item->user_posts->name }}</small>
                 </div>
               </div>
             </div>

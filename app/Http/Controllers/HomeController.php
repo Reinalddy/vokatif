@@ -19,7 +19,7 @@ class HomeController extends Controller
     {
         // get data login user
         $data = Auth::user();
-        $post = Post::all();
+        $post = Post::with('user_posts')->get();
         $banner_post = Post::paginate(3);
         if($data) {
             $user = DB::table('users')->where('email', $data->email)->first();
