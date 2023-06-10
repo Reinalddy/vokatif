@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 use function PHPSTORM_META\map;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 
@@ -122,7 +122,64 @@ class LoginController extends Controller
             ]);
         } catch (\Throwable $e) {
             return response()->json([
-                'code' => 200,
+                'code' => 500,
+                'messages' => $e
+            ]);
+        }
+    }
+
+    public function forgot_password_index(Request $request)
+    {
+        return view('home.login.forgot-password');
+    }
+
+    public function forgot_password(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'email' => "required",
+            'new_password' => "required",
+        ],
+        [
+            "email.required" => 'Email Is required !',
+            "new_password.required" => 'New Password Is required !',
+            "old_password.required" => 'Old Password Is required !'
+        ]
+    );
+
+        if($validator->fails()) {
+            return response()->json([
+                'code' => 422,
+                'data' => $validator->errors()
+            ]);
+        }
+        try {
+            $data_email = $request->email;
+            $data_new_password = $request->new_password;
+
+            $user = User::where('email', $data_email)->first();
+            if(!isset($user)) {
+                return response()->json([
+                    "code" => 400,
+                    "messages" => trans('messages.email_invalid'),
+                    "data" => null
+                ]);
+            }
+            DB::beginTransaction();
+            $user->password = bcrypt($data_new_password);
+            $user->save();
+
+            DB::commit();
+            return response()->json([
+                "code" => 200,
+                "messages" => trans('messages.change_password'),
+                "data" => $user
+            ]);
+
+
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return response()->json([
+                'code' => 500,
                 'messages' => $e
             ]);
         }

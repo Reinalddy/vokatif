@@ -28,6 +28,9 @@ Route::middleware('public')->group(function(){
   
   Route::get('/register',[LoginController::class, 'register_index']);
   Route::post('/register',[LoginController::class, 'register']);
+
+  Route::get('/forgot-password',[LoginController::class, 'forgot_password_index']);
+  Route::post('/forgot-password',[LoginController::class, 'forgot_password']);
 });
 
 Route::middleware('login')->group(function() {

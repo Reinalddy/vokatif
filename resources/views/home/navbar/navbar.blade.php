@@ -45,18 +45,17 @@
     <!-- Right elements -->
     <div class="d-flex align-items-center">
       @if ($user)
-
         @if($user->profile_path == url('/img/profile_default.jpg'))
         <img src="{{ $user->profile_path }}" alt="" class="user-pic" onclick="toggleMenu()" id="toggle-menu">
         @else
         <img src="{{ url("storage/$user->profile_path" ) }}" alt="" class="user-pic" onclick="toggleMenu()" id="toggle-menu">
 
       <!-- Button trigger modal -->
-        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        {{-- <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
           Upload
-        </button>
+        </button> --}}
 
-        <img src="{{ asset('/img/logo.png') }}" alt="" class="user-pic" onclick="toggleMenu()" id="toggle-menu">
+        {{-- <img src="{{ asset('/img/logo.png') }}" alt="" class="user-pic" onclick="toggleMenu()" id="toggle-menu"> --}}
 
 
         @endif
