@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Auth\Events\Validated;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
@@ -37,6 +38,7 @@ class PostController extends Controller
             $post->descriptions = $request->description;
             $post->categories_id = 1;
             $post->image_path = $request->file('image')->store('assets/posts', 'public');
+            $post->user_id = Auth::user()->id;
             $post->save();
             DB::commit();
     
