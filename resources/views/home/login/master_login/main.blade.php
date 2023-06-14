@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <!-- CSRF Token -->
   <meta name="_token" content="{{ csrf_token() }}">
+  <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}">
   <title>Vokatif</title>
   @stack('jquery')
   @include('sweetalert::alert')
