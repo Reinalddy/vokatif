@@ -2,25 +2,25 @@
       <div class="position-sticky pt-3 sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
+            <a class="nav-link {{ (request()->is('dashboard')) ? 'active' : '' }}" aria-current="page" href="{{ url('/dashboard') }}">
               <span data-feather="home" class="align-text-bottom"></span>
               Dashboard
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link {{ (request()->is('dashboard/posts')) ? 'active' : '' }}" href="{{ url('/dashboard/posts') }}">
               <span data-feather="file" class="align-text-bottom"></span>
               Posts
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link {{ (request()->is('dashboard/categories')) ? 'active' : '' }}" href="{{ url('/dashboard/categories') }}">
               <span data-feather="shopping-cart" class="align-text-bottom"></span>
               Categories
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link {{ (request()->is('dashboard/users')) ? 'active' : '' }}" href="{{ url('/dashboard/users') }}">
               <span data-feather="users" class="align-text-bottom"></span>
               Users
             </a>
