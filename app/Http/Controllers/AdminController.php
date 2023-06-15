@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
@@ -31,10 +32,48 @@ class AdminController extends Controller
 
     public function posts_index(Request $request)
     {
-        $post = Post::with('user_posts')->get();
+        $post = Post::with(['categories','user_posts'])->get();
         return view('admin.dashboard.posts',[
             'posts' => $post
         ]);
+    }
+
+    public function detail_posts(Request $request)
+    {
+        try {
+            // get detail posts
+            $post = Post::with(['categories','user_posts'])->where('id',$request->id)->first();
+    
+            if(!isset($post)){
+                return response()->json([
+                    'code' => 400,
+                    'messages' => 'Posts not Found !',
+                    'data' => null
+                ]);
+            }
+
+            return response()->json([
+                'code' => 200,
+                'messages' => 'Request Success',
+                'data' => $post
+            ]);
+        } catch (\Throwable $exception) {
+            $message = array(
+                "url"       => url()->current(),
+                "error"     => $exception->getMessage() . " LINE : " . $exception->getLine(),
+                "data"      => $request,
+                "controller"=> app('request')->route()->getAction(),
+            );
+            Log::critical($message);
+            return response()->json([
+                'code' => 400,
+                'message' => trans('messages.went_wrong'),
+                'data' => $message
+            ]);
+        }
+
+        
+
     }
 
     public function categories_index(Request $request)

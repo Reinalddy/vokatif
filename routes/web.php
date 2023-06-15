@@ -46,8 +46,12 @@ Route::middleware('login')->group(function() {
 
   Route::middleware('admin')->group(function () {
     Route::get('/dashboard',[AdminController::class,'admin_index']);
+
     Route::get('/dashboard/users',[AdminController::class,'users_index']);
+
     Route::get('/dashboard/posts',[AdminController::class,'posts_index']);
+    Route::post('/dashboard/posts',[AdminController::class,'detail_posts']);
+
     Route::get('/dashboard/categories',[AdminController::class,'categories_index']);
   });
   
