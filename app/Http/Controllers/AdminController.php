@@ -76,6 +76,42 @@ class AdminController extends Controller
 
     }
 
+    public function delete_posts(Request $request, $id)
+    {
+        try {
+            // find posts
+            $post = Post::where('id', $id)->first();
+            if(isset($post)){
+                $post->delete();
+
+                return response()->json([
+                    "code" => 200,
+                    "messages" => 'Delete Data Success',
+                    'data' => $post
+                ]);
+            }
+
+            return response()->json([
+                    "code" => 400,
+                    "messages" => 'Delete Data Failed',
+                    'data' => $post
+            ]);
+        } catch (\Throwable $exception) {
+            $message = array(
+                "url"       => url()->current(),
+                "error"     => $exception->getMessage() . " LINE : " . $exception->getLine(),
+                "data"      => $request,
+                "controller"=> app('request')->route()->getAction(),
+            );
+            Log::critical($message);
+            return response()->json([
+                'code' => 400,
+                'message' => trans('messages.went_wrong'),
+                'data' => $message
+            ]);
+        }
+    }
+
     public function categories_index(Request $request)
     {
         $categories = Category::all();
