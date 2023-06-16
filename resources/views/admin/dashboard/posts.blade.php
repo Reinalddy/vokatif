@@ -22,10 +22,7 @@
         <td>{{ $item->categories->name }}</td>
         <td>{{ $item->user_posts->name }}</td>
         <td>
-          <form id="delete-posts">
-            <input type="hidden" readonly value="{{ $item->id }}">
-            <button type="submit" class="bi bi-trash"> Delete</button>
-          </form>
+          <button class="bi bi-trash" onclick="deletePosts({{ $item->id }})"> Delete</button>
           <button class= "bi bi-search mt-2" onclick="open_modal_detail_posts({{ $item->id }})">Detail Posts</button>
         </td>
             
@@ -89,7 +86,6 @@
         }
   });
 
-
   
 });
 
@@ -121,6 +117,25 @@ function open_modal_detail_posts(id){
             });
         }
       });
+}
+
+
+function deletePosts(id) {
+  $.ajax({
+    type: "post",
+    url: "{{ url('/dashboard/delete/posts') }}/" + id,
+    data: {'id' : id},
+    dataType: "json",
+    success: function (response) {
+      if(response.code == 200) {
+          Swal.fire(
+              'Success!',
+              response.messages,
+              'success'
+          )
+        }
+    }
+  });
 }
 
 </script>
