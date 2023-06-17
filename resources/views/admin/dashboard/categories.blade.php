@@ -18,10 +18,7 @@
         <th scope="row">{{ $item->id }}</th>
         <td>{{ $item->name }}</td>
         <td>
-          <form id="delete-posts">
-            <input type="hidden" readonly value="{{ $item->id }}">
-            <button type="submit" class="bi bi-trash"> Delete</button>
-          </form>
+          <button class="bi bi-trash" onclick="deleteCategories({{ $item->id }})"> Delete</button>
         </td>
             
       </tr>
@@ -118,6 +115,60 @@
   })
   
 });
+
+
+function deleteCategories(id) {
+    Swal.fire({
+    title: 'This data will deleted permanently Are You Sure ?',
+    showCancelButton: true,
+    confirmButtonText: 'Yes',
+    denyButtonText: `NO`,
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+        $.ajax({
+          type: "post",
+          url: "{{ url('/dashboard/categories/delete/') }}/" + id,
+          data: {'id' : id},
+          dataType: "json",
+          success: function (response) {
+            console.log(response);
+            if(response.code == 200) {
+                Swal.fire(
+                    'Success!',
+                    response.messages,
+                    'success'
+                )
+              } else if (response.code == 400) {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: response.message,
+                })
+
+              }
+          }
+        });
+    } else if (result.isDenied) {
+      Swal.fire('Changes are not saved', '', 'info')
+    }
+  })
+  // $.ajax({
+  //   type: "post",
+  //   url: "{{ url('/dashboard/delete/posts') }}/" + id,
+  //   data: {'id' : id},
+  //   dataType: "json",
+  //   success: function (response) {
+  //     if(response.code == 200) {
+  //         Swal.fire(
+  //             'Success!',
+  //             response.messages,
+  //             'success'
+  //         )
+  //       }
+  //   }
+  // });
+}
 
 </script>
 

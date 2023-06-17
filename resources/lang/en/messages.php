@@ -10,5 +10,6 @@ return [
     'update_profile_success' => "Update Profile Success",
     'old_password_not_match' => "Password Not Match !! ",
     'change_password' => "Change Password Success",
-    'email_invalid' => "Email Invalid !"
+    'email_invalid' => "Email Invalid !",
+    'went_wrong' => "Something Went Realy Wrong Please Contact Administrator"
 ];

@@ -55,6 +55,7 @@ Route::middleware('login')->group(function() {
 
     Route::get('/dashboard/categories',[AdminController::class,'categories_index']);
     Route::post('/dashboard/categories/add',[AdminController::class,'add_new_categories']);
+    Route::post('/dashboard/categories/delete/{id}',[AdminController::class,'delete_categories']);
   });
   
 });

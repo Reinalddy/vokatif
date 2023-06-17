@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
+use GuzzleHttp\RetryMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -152,6 +153,47 @@ class AdminController extends Controller
                 'meesages' => "udpate categories Success",
                 'data' => $categories
             ]);
+
+        } catch (\Throwable $exception) {
+            DB::rollBack();
+            $message = array(
+                "url"       => url()->current(),
+                "error"     => $exception->getMessage() . " LINE : " . $exception->getLine(),
+                "data"      => $request,
+                "controller"=> app('request')->route()->getAction(),
+            );
+            Log::critical($message);
+            return response()->json([
+                'code' => 400,
+                'message' => trans('messages.went_wrong'),
+                'data' => $message
+            ]);
+        }
+    }
+
+    public function delete_categories(Request $request,$id)
+    {
+        try {
+            // find categories
+            $categories = Category::find($id);
+            if(isset($categories)){
+                DB::beginTransaction();
+                $categories->delete();
+                DB::commit();
+
+                return response()->json([
+                    'code' => 200,
+                    'messages'=> "Categories Deleted",
+                    'data' => $categories
+                ]);
+            }
+
+            return response()->json([
+                'code' => 400,
+                'messages'=> "Posts Not Found !",
+                'data' => $categories
+            ]);
+
 
         } catch (\Throwable $exception) {
             DB::rollBack();
