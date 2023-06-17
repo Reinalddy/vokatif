@@ -22,10 +22,7 @@
         <td>{{ $item->email }}</td>
         <td>{{ $item->role_id }}</td>
         <td>
-          <form id="delete-posts">
-            <input type="hidden" readonly value="{{ $item->id }}">
-            <button type="submit" class="bi bi-trash"> Delete</button>
-          </form>
+          <button class="bi bi-trash" onclick="deleteUsers({{ $item->id }})"> Delete</button>
         </td>
             
       </tr>
@@ -76,15 +73,68 @@
   <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>    
 @endpush
 <script>
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-      }
-});
-
-$(document).ready(function () {
+  
+  $(document).ready(function () {
+  $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+  });
   
 });
+
+function deleteUsers(id) {
+    Swal.fire({
+    title: 'This data will deleted permanently Are You Sure ?',
+    showCancelButton: true,
+    confirmButtonText: 'Yes',
+    denyButtonText: `NO`,
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+        $.ajax({
+          type: "post",
+          url: "{{ url('/dashboard/users/delete/') }}/" + id,
+          data: {'id' : id},
+          dataType: "json",
+          success: function (response) {
+            console.log(response);
+            if(response.code == 200) {
+                Swal.fire(
+                    'Success!',
+                    response.messages,
+                    'success'
+                )
+              } else if (response.code == 400) {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: response.message,
+                })
+
+              }
+          }
+        });
+    } else if (result.isDenied) {
+      Swal.fire('Changes are not saved', '', 'info')
+    }
+  })
+  // $.ajax({
+  //   type: "post",
+  //   url: "{{ url('/dashboard/delete/posts') }}/" + id,
+  //   data: {'id' : id},
+  //   dataType: "json",
+  //   success: function (response) {
+  //     if(response.code == 200) {
+  //         Swal.fire(
+  //             'Success!',
+  //             response.messages,
+  //             'success'
+  //         )
+  //       }
+  //   }
+  // });
+}
 
 </script>
 

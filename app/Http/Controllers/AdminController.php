@@ -33,6 +33,45 @@ class AdminController extends Controller
         ]);
     }
 
+    public function delete_users(Request $request, $id)
+    {
+        try {
+            $user = User::find($id);
+
+            if(isset($user)){
+                DB::beginTransaction();
+                $user->delete();
+                DB::commit();
+
+                return response()->json([
+                    'code' => 200,
+                    'messages' => "Users Deleted",
+                    'data' => $user
+                ]);
+            }
+
+            return response()->json([
+                'code' => 400,
+                'messages' => "Users Not Found",
+                'data' => $user
+            ]);
+            
+        } catch (\Throwable $exception) {
+            $message = array(
+                "url"       => url()->current(),
+                "error"     => $exception->getMessage() . " LINE : " . $exception->getLine(),
+                "data"      => $request,
+                "controller"=> app('request')->route()->getAction(),
+            );
+            Log::critical($message);
+            return response()->json([
+                'code' => 400,
+                'message' => trans('messages.went_wrong'),
+                'data' => $message
+            ]);
+        }
+    }
+
     public function posts_index(Request $request)
     {
         $post = Post::with(['categories','user_posts'])->get();

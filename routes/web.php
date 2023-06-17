@@ -48,6 +48,7 @@ Route::middleware('login')->group(function() {
     Route::get('/dashboard',[AdminController::class,'admin_index']);
 
     Route::get('/dashboard/users',[AdminController::class,'users_index']);
+    Route::post('/dashboard/users/delete/{id}',[AdminController::class,'delete_users']);
 
     Route::get('/dashboard/posts',[AdminController::class,'posts_index']);
     Route::post('/dashboard/posts',[AdminController::class,'detail_posts']);
