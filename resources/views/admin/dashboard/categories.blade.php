@@ -45,13 +45,13 @@
           <div class="col-md-12">
             <div class="container">
               <div class="mb-5">
-                  <form action="" enctype="multipart/form-data" id="upload-form">
+                  <form action="" enctype="multipart/form-data" id="add_category_form">
                     <div class="form-group mt-3">
                       <label for="title" class="form-label">Name</label>
                       <input type="text" class="form-control" id="title" name="title">
                     </div>
-                    <button class="btn btn-primary mt-5" type="submit" id="btn-upload">Submit</button>
-                    <button class="btn btn-primary mt-5 d-none" type="submit" disabled id="btn-loading">
+                    <button class="btn btn-primary mt-5" type="submit" id="btn-upload-categories">Submit</button>
+                    <button class="btn btn-primary mt-5 d-none" type="submit" disabled id="btn-loading-upload-categories">
                       <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                       Loading...
                     </button>
@@ -72,13 +72,50 @@
   <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>    
 @endpush
 <script>
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-      }
-});
+  $(document).ready(function () {
+  $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+  });
 
-$(document).ready(function () {
+  $("#add_category_form").on("submit", function(e){
+    e.preventDefault();
+    let data = $(this).serialize();
+
+    $.ajax({
+      type: "POST",
+      url: "{{ url('/dashboard/categories/add') }}",
+      data: data,
+      dataType: "JSON",
+      beforeSend: function (){  
+        $("#btn-loading-upload-categories").removeClass('d-none');
+        $("#btn-upload-categories").addClass('d-none');
+      },
+      success: function (response) {
+        if(response.code == 200) {
+          $("#btn-loading-upload-categories").addClass('d-none');
+          $("#btn-upload-categories").removeClass('d-none');
+          Swal.fire(
+            'Success!',
+            response.messages,
+            'success'
+          )
+
+        } else if (response.code == 422) {
+            $.each(response.data,function(field_name,error) {
+                $(document).find('[id='+field_name+']').after('<div class="invalid-feedback d-block">' + error + '</div>')
+            })
+        }
+        
+      },error: function (err) {
+            $.each(err.responseJSON.errors, function (key, value) {
+                $("#" + key).next().html(value[0]);
+                $("#" + key).next().removeClass('d-none');
+            });
+        }
+    });
+  })
   
 });
 

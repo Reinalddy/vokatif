@@ -6,7 +6,9 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
@@ -118,5 +120,53 @@ class AdminController extends Controller
         return view('admin.dashboard.categories',[
             'categories' => $categories
         ]);
+    }
+
+    public function add_new_categories(Request $request)
+    {
+        $valdiator = Validator::make($request->all(),[
+             'title' => "required"
+         ],
+         [
+            'title.required' => 'Name is Required !'
+         ]
+        );
+         
+         if($valdiator->fails()){
+             return response()->json([
+                 'code' => 422,
+                 'data'=> $valdiator->errors()
+             ]);
+         }
+        try {
+
+            DB::beginTransaction();
+            $categories = new Category();
+            $categories->name = $request->title;
+            $categories->created_at = now();
+            $categories->save();
+            DB::commit();
+
+            return response()->json([
+                'code' => 200,
+                'meesages' => "udpate categories Success",
+                'data' => $categories
+            ]);
+
+        } catch (\Throwable $exception) {
+            DB::rollBack();
+            $message = array(
+                "url"       => url()->current(),
+                "error"     => $exception->getMessage() . " LINE : " . $exception->getLine(),
+                "data"      => $request,
+                "controller"=> app('request')->route()->getAction(),
+            );
+            Log::critical($message);
+            return response()->json([
+                'code' => 400,
+                'message' => trans('messages.went_wrong'),
+                'data' => $message
+            ]);
+        }
     }
 }
