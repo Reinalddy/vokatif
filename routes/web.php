@@ -48,12 +48,15 @@ Route::middleware('login')->group(function() {
     Route::get('/dashboard',[AdminController::class,'admin_index']);
 
     Route::get('/dashboard/users',[AdminController::class,'users_index']);
+    Route::post('/dashboard/users/delete/{id}',[AdminController::class,'delete_users']);
 
     Route::get('/dashboard/posts',[AdminController::class,'posts_index']);
     Route::post('/dashboard/posts',[AdminController::class,'detail_posts']);
     Route::post('/dashboard/delete/posts/{id}',[AdminController::class,'delete_posts']);
 
     Route::get('/dashboard/categories',[AdminController::class,'categories_index']);
+    Route::post('/dashboard/categories/add',[AdminController::class,'add_new_categories']);
+    Route::post('/dashboard/categories/delete/{id}',[AdminController::class,'delete_categories']);
   });
   
 });
