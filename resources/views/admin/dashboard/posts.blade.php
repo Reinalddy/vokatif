@@ -103,7 +103,11 @@ function open_modal_detail_posts(id){
             $('#photo-posts').attr("src","{{ url('/storage') }}/" + response.data.image_path )
 
           } else if (response.code == 400) {
-
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: response.messages,
+            })
 
           } else if (response.code == 422) {
               $.each(response.data,function(field_name,error){
@@ -121,21 +125,48 @@ function open_modal_detail_posts(id){
 
 
 function deletePosts(id) {
-  $.ajax({
-    type: "post",
-    url: "{{ url('/dashboard/delete/posts') }}/" + id,
-    data: {'id' : id},
-    dataType: "json",
-    success: function (response) {
-      if(response.code == 200) {
-          Swal.fire(
-              'Success!',
-              response.messages,
-              'success'
-          )
-        }
+    Swal.fire({
+    title: 'This data will deleted permanently Are You Sure ?',
+    showCancelButton: true,
+    confirmButtonText: 'Yes',
+    denyButtonText: `NO`,
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+        $.ajax({
+          type: "post",
+          url: "{{ url('/dashboard/delete/posts') }}/" + id,
+          data: {'id' : id},
+          dataType: "json",
+          success: function (response) {
+            if(response.code == 200) {
+                Swal.fire(
+                    'Success!',
+                    response.messages,
+                    'success'
+                )
+              }
+          }
+        });
+    } else if (result.isDenied) {
+      Swal.fire('Changes are not saved', '', 'info')
     }
-  });
+  })
+  // $.ajax({
+  //   type: "post",
+  //   url: "{{ url('/dashboard/delete/posts') }}/" + id,
+  //   data: {'id' : id},
+  //   dataType: "json",
+  //   success: function (response) {
+  //     if(response.code == 200) {
+  //         Swal.fire(
+  //             'Success!',
+  //             response.messages,
+  //             'success'
+  //         )
+  //       }
+  //   }
+  // });
 }
 
 </script>
