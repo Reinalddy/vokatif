@@ -23,6 +23,8 @@ Route::get('/', [HomeController::class,'view']);
 Route::get('/detail-posts/{id}',[HomeController::class,'detail_posts']);
 
 Route::get('/creatifity',[HomeController::class,'creatifity_index']);
+Route::get('/creatifity/list',[HomeController::class,'creatifity_list']);
+Route::post('/creatifity/search',[HomeController::class,'creatifity_search']);
 
 Route::get('/about-us',[HomeController::class,'about_us_index']);
 

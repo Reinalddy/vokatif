@@ -38,6 +38,9 @@
           <a class="nav-link" href="{{ url('/about-us') }}">About Us</a>
         </li>
       </ul>
+      <form class="d-flex me-5">
+        <input class="form-control me-2" type="search" placeholder="Search User" aria-label="Search">
+      </form>
       <!-- Left links -->
     </div>
     <!-- Collapsible wrapper -->
@@ -79,8 +82,8 @@
               </a>
             </div>
             <div>
-              <a href="{{ url('/settings') }}" class="sub-menu-link">
-                <p>Settings</p>
+              <a href="{{ url('/my-posts') }}" class="sub-menu-link">
+                <p>My Posts</p>
               </a>
             </div>
             <div>

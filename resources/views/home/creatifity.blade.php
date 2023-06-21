@@ -15,33 +15,24 @@
   <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
     <div class="d-flex justify-content-center align-items-center h-100">
       <div class="text-white">
-        <h1 class="mb-3">Heading</h1>
-        <h4 class="mb-3">Subheading</h4>
-        <input type="text" class="form-control" placeholder="Search">
+        <h1 class="mb-3">{{ $banner_post->title }}</h1>
+        <h4 class="mb-3">{{ $banner_post->descriptions }}</h4>
       </div>
     </div>
   </div>
 </div>
+
+<div class="col-md-12">
+    <input type="text" class="form-control w-25 mt-3 mb-3 ms-5" placeholder="Search" id="search_column" oninput="search(this.value)">
+</div>
+
   <div class="album py-5 bg-body-tertiary">
     <div class="container">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          @foreach ($post as $item)
-          <div class="col">
-            <div class="card shadow-sm">
-              <img src="{{ url("/storage/$item->image_path") }}" alt="" style="width: 100%", height="450px">
-              <div class="card-body">
-                <p class="card-text">{{ $item->title }}</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <a href="{{ url("/detail-posts/$item->id") }}" class="btn btn-outline-info">Detail</a>
-                  </div>
-                  <small class="text-body-secondary">Uploded By : {{$item->user_posts->name }}</small>
-                </div>
-              </div>
-            </div>
-          </div>
-          @endforeach
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="content">
       </div>
+
+
+
     </div>
   </div>
 </div>
@@ -113,6 +104,7 @@
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
     });
+    fetch_data();
     // request for logout
     $('.sub-menu-wrap').on('click','#logout-button', function(e) {
       e.preventDefault();
@@ -203,6 +195,82 @@ function preview() {
 function clearImage() {
   document.getElementById('formFile').value = null;
   frame.src = "";
+}
+
+function search(value) {
+  var data_html = '';
+  var data = {
+    name: value
+  }
+  $.ajax({
+    type: "post",
+    url: "{{ url('/creatifity/search') }}",
+    data:data,
+    dataType: "json",
+    success: function (response) {
+      if(response.code == 200) {
+        response.data.forEach(element => {
+          console.log(element);
+           data_html += `
+            <div class="col">
+              <div class="card shadow-sm">
+                <img src="{{ url("/storage/") }}/${element.image_path}" alt="" style="width: 100%", height="450px">
+                <div class="card-body">
+                  <p class="card-text">${element.title}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <a href="{{ url("/detail-posts/") }}/${element.id}" class="btn btn-outline-info">Detail</a>
+                    </div>
+                    <small class="text-body-secondary">Uploded By : ${element.user_posts.name}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+          
+        });
+        $("#content").html(data_html);
+
+      }
+    }
+  });
+}
+
+function fetch_data() {
+   var data = '';
+  $.ajax({
+    type: "GET",
+    url: "{{ url('/creatifity/list') }}",
+    data: "data",
+    dataType: "json",
+    success: function (response) {
+      if(response.code == 200) {
+        response.data.forEach(element => {
+          console.log(element);
+          data += `
+          
+            <div class="col">
+              <div class="card shadow-sm">
+                <img src="{{ url("/storage/") }}/${element.image_path}" alt="" style="width: 100%", height="450px">
+                <div class="card-body">
+                  <p class="card-text">${element.title}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <a href="{{ url("/detail-posts/") }}/${element.id}" class="btn btn-outline-info">Detail</a>
+                    </div>
+                    <small class="text-body-secondary">Uploded By : ${element.user_posts.name}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+          `;
+        });
+        console.log(data);
+        $("#content").html(data);
+      }
+    }
+  });
 }
 </script>
 @endsection
