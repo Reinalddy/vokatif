@@ -43,10 +43,15 @@ class HomeController extends Controller
     
     public function creatifity_index(Request $request)
     {
+        $data = Auth::user();
+        $post = Post::with('user_posts')->get();
+        $banner_post = Post::with('user_posts')->where('target','heading')->first();
         $user = Auth::user();
 
         return view('home.creatifity',[
-            'user' => $user
+            'user' => $user,
+            'banner_post'=> $banner_post,
+            'post' => $post
         ]);
     }
 
@@ -167,5 +172,17 @@ class HomeController extends Controller
         return view('profile.my-posts',[
             'user' => $user
         ]);
+    }
+
+    public function detail_posts(Request $request, $id)
+    {
+        $user = Auth::user();
+        // search posts
+        $post = Post::find($id);
+
+        return view('home.detail',[
+            'user' => $user,
+            'post' => $post
+        ]); 
     }
 }

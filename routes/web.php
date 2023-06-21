@@ -19,7 +19,11 @@ use App\Http\Controllers\PostController;
 
 
 Route::get('/', [HomeController::class,'view']);
+
+Route::get('/detail-posts/{id}',[HomeController::class,'detail_posts']);
+
 Route::get('/creatifity',[HomeController::class,'creatifity_index']);
+
 Route::get('/about-us',[HomeController::class,'about_us_index']);
 
 Route::middleware('public')->group(function(){

@@ -45,6 +45,8 @@
     <!-- Right elements -->
     <div class="d-flex align-items-center">
       @if ($user)
+        <div class="col-md-12">
+        <button type="button" class="btn btn-primary @if(!$user)d-none @endif" data-bs-toggle="modal" data-bs-target="#exampleModal">Upload</button>
         @if($user->profile_path == url('/img/profile_default.jpg'))
         <img src="{{ $user->profile_path }}" alt="" class="user-pic" onclick="toggleMenu()" id="toggle-menu">
         @else
