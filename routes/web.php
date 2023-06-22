@@ -26,6 +26,8 @@ Route::get('/creatifity',[HomeController::class,'creatifity_index']);
 Route::get('/creatifity/list',[HomeController::class,'creatifity_list']);
 Route::post('/creatifity/search',[HomeController::class,'creatifity_search']);
 
+Route::post('/posts/like',[HomeController::class,'like_posts']);
+
 Route::get('/about-us',[HomeController::class,'about_us_index']);
 
 Route::middleware('public')->group(function(){

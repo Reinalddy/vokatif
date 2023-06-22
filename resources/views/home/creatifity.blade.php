@@ -220,6 +220,7 @@ function search(value) {
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <a href="{{ url("/detail-posts/") }}/${element.id}" class="btn btn-outline-info">Detail</a>
+                      <button class= "btn btn-danger"> Like </button>
                     </div>
                     <small class="text-body-secondary">Uploded By : ${element.user_posts.name}</small>
                   </div>
@@ -257,6 +258,7 @@ function fetch_data() {
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <a href="{{ url("/detail-posts/") }}/${element.id}" class="btn btn-outline-info">Detail</a>
+                      <button class= "btn btn-danger ms-3"> <i class="bi bi-heart-fill"></i> 1</button>
                     </div>
                     <small class="text-body-secondary">Uploded By : ${element.user_posts.name}</small>
                   </div>
@@ -272,5 +274,17 @@ function fetch_data() {
     }
   });
 }
+
+// function like(post_id) {
+//   $.ajax({
+//     type: "post",
+//     url: "url",
+//     data: "data",
+//     dataType: "dataType",
+//     success: function (response) {
+      
+//     }
+//   });
+// }
 </script>
 @endsection

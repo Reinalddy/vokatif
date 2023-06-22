@@ -39,6 +39,7 @@ class PostController extends Controller
             $post->categories_id = 1;
             $post->image_path = $request->file('image')->store('assets/posts', 'public');
             $post->user_id = Auth::user()->id;
+            $post->target = 'content';
             $post->save();
             DB::commit();
     
