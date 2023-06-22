@@ -8,10 +8,13 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Cache\RedisStore;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Validator;
+
+use function PHPSTORM_META\map;
 
 class HomeController extends Controller
 {
@@ -43,11 +46,60 @@ class HomeController extends Controller
     
     public function creatifity_index(Request $request)
     {
+        $data = Auth::user();
+        if(isset($request)) {
+            $post = Post::with('user_posts')->get();
+            
+        } else {
+            $post = Post::with('user_posts')->get();
+
+        }
+        $banner_post = Post::with('user_posts')->where('target','heading')->first();
         $user = Auth::user();
 
         return view('home.creatifity',[
-            'user' => $user
+            'user' => $user,
+            'banner_post'=> $banner_post,
+            'post' => $post
         ]);
+    }
+
+    public function creatifity_list(Request $request)
+    {
+        $post = Post::with('user_posts')->get();
+
+        return response()->json([
+                'code' => 200,
+                'message' => 'Fetch Data Success',
+                'data' => $post
+            ]);
+    }
+
+    public function creatifity_search(Request $request)
+    {
+        try {
+
+            $post = Post::with('user_posts')->where('title','LIKE','%'.$request->name.'%')->get();
+
+            return response()->json([
+                'code' => 200,
+                'message' => 'Fetch Data Success',
+                'data' => $post
+            ]);
+        } catch (\Throwable $exception) {
+            $message = array(
+                "url"       => url()->current(),
+                "error"     => $exception->getMessage() . " LINE : " . $exception->getLine(),
+                "data"      => $request,
+                "controller"=> app('request')->route()->getAction(),
+            );
+            Log::critical($message);
+            return response()->json([
+                'code' => 400,
+                'message' => trans('messages.went_wrong'),
+                'data' => $message
+            ]);
+        }
     }
 
     public function about_us_index(Request $request)
@@ -163,9 +215,23 @@ class HomeController extends Controller
 
     public function my_posts_index(Request $request){
         $user = Auth::user();
+        $post = Post::with('user_posts')->where('user_id', $user->id)->get();
 
         return view('profile.my-posts',[
-            'user' => $user
+            'user' => $user,
+            'posts' => $post
         ]);
+    }
+
+    public function detail_posts(Request $request, $id)
+    {
+        $user = Auth::user();
+        // search posts
+        $post = Post::find($id);
+
+        return view('home.detail',[
+            'user' => $user,
+            'post' => $post
+        ]); 
     }
 }

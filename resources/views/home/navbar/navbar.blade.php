@@ -38,6 +38,9 @@
           <a class="nav-link" href="{{ url('/about-us') }}">About Us</a>
         </li>
       </ul>
+      <form class="d-flex me-5">
+        <input class="form-control me-2" type="search" placeholder="Search User" aria-label="Search">
+      </form>
       <!-- Left links -->
     </div>
     <!-- Collapsible wrapper -->
@@ -45,6 +48,8 @@
     <!-- Right elements -->
     <div class="d-flex align-items-center">
       @if ($user)
+        <div class="col-md-12">
+        <button type="button" class="btn btn-primary @if(!$user)d-none @endif" data-bs-toggle="modal" data-bs-target="#exampleModal">Upload</button>
         @if($user->profile_path == url('/img/profile_default.jpg'))
         <img src="{{ $user->profile_path }}" alt="" class="user-pic" onclick="toggleMenu()" id="toggle-menu">
         @else
@@ -77,8 +82,8 @@
               </a>
             </div>
             <div>
-              <a href="{{ url('/settings') }}" class="sub-menu-link">
-                <p>Settings</p>
+              <a href="{{ url('/my-posts') }}" class="sub-menu-link">
+                <p>My Posts</p>
               </a>
             </div>
             <div>
