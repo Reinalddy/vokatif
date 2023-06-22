@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Like;
 use Throwable;
 use App\Models\Post;
 use App\Models\User;
@@ -233,5 +234,35 @@ class HomeController extends Controller
             'user' => $user,
             'post' => $post
         ]); 
+    }
+
+    public function like_posts(Request $request)
+    {
+        try {
+            
+            DB::beginTransaction();
+            
+            $like = new Like();
+            $like->post_id = $request->post_id;
+            $like->save();
+
+            DB::commit();
+
+            $total_like = Like::where('post_id', $request->post_id)->count();
+
+            return response()->json([
+                'code' => 200,
+                'message' => 'Success, like Posts',
+                'data' => $like,
+                'total_like' => $total_like
+            ]);
+
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return response()->json([
+                "code" => 500,
+                'messages'=>$e->getMessage(),
+            ]);
+        }
     }
 }
